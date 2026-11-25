@@ -29,6 +29,9 @@ def main() -> int:
     if "\n" in text:
         print("entry must be a single line", file=sys.stderr)
         return 1
+    if any(ord(ch) < 0x20 and ch not in ("\t",) for ch in text):
+        print("entry must not contain control characters", file=sys.stderr)
+        return 1
 
     out_path = "/output/entry.txt"
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
